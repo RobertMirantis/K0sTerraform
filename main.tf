@@ -55,12 +55,7 @@ resource "aws_security_group" "RoHa_K0s_SG1" {
 }
 
 
-########################
-# EIPS for MASTER NODES
-########################
-#resource "aws_eip" "myip" {
-#  count = var.number_of_masternodes
-#}
+
 
 
 ######################## 
@@ -87,11 +82,7 @@ resource "aws_instance" "masterserver" {
 }
 
 
-#resource "aws_eip_association" "eip_assoc" {
-#  count = var.number_of_masternodes
-#  instance_id   = aws_instance.masterserver[count.index].id
-#  allocation_id = aws_eip.myip[count.index].id
-#}
+
 
 
 ######################## 
