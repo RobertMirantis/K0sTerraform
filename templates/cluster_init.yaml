@@ -1,0 +1,23 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: CLUSTERNAME
+spec:
+  k0s:
+    version: 1.27.4+k0s.0
+    dynamicConfig: false
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: ClusterConfig
+      metadata:
+         name: CLUSTERNAME
+      spec:
+        api:
+          address: LBNAME
+          k0sApiPort: 9443
+          port: 6443
+          externalAddress: LBNAME
+          sans:
+          - LBNAME
+          tunneledNetworkingMode: false
+  hosts:
