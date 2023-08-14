@@ -192,7 +192,7 @@ resource "null_resource" "launchpad1" {
   
   provisioner "local-exec" {
     #command = "cd scripts ; ./1addmaster.ksh ${aws_eip.myip[count.index].public_ip}"
-    command = "cd scripts ; ./1addmaster.ksh ${aws_instance.masterserver[count.index].private_ip}"
+    command = "cd scripts ; ./1addmaster.ksh ${aws_instance.masterserver[count.index].private_ip} ${var.full_key-path}"
   } 
 } 
 
@@ -201,7 +201,7 @@ resource "null_resource" "launchpad2" {
   count = var.number_of_workernodes
   
   provisioner "local-exec" {
-    command = "cd scripts ; ./2addworker.ksh ${aws_instance.workerserver[count.index].private_ip}"
+    command = "cd scripts ; ./2addworker.ksh ${aws_instance.workerserver[count.index].private_ip} ${var.full_key-path}"
   } 
 } 
 
