@@ -1,3 +1,4 @@
+
 variable "image_id" {
   type = string
   default = "ami-0e0102e3ff768559b"
@@ -11,6 +12,11 @@ variable "instance_type" {
 variable "my_key" {
   type = string
   default = "roha_account2"
+}
+
+variable "full_key-path" {
+  type = string
+  default = "/home/ec2-user/.ssh/roha_account2.pem"
 }
 
 variable "clustername" {
@@ -29,3 +35,10 @@ variable "number_of_workernodes" {
   type = number
   default = 3
 }
+
+variable "name-for-SG" {
+  type = string
+  default = "K0s_SecurityGroup"
+}
+
+

@@ -1,15 +1,11 @@
 
-#data "aws_availability_zones" "available" {
-#  state = "available"
-#}
-
 data "aws_vpc" "default" {
   default = true
 } 
 
 # SG
 resource "aws_security_group" "RoHa_K0s_SG1" {
-  name        = "RoHa_K0s_SG1"
+  name        = "${var.name-for-SG}"
   description = "Allow everything within SG1"
   vpc_id      = data.aws_vpc.default.id
 
@@ -39,7 +35,7 @@ resource "aws_security_group" "RoHa_K0s_SG1" {
   }
 
   ingress {
-    description = "Allow access for Lens"
+    description = "Allow access to Kubernetes"
     from_port   = 6443
     to_port     = 6443
     protocol    = "tcp"
@@ -54,7 +50,7 @@ resource "aws_security_group" "RoHa_K0s_SG1" {
   }
 
   tags = {
-    Name = "RoHa_K0s_SG1"
+    Name = "${var.name-for-SG}"
   }
 }
 
@@ -62,9 +58,9 @@ resource "aws_security_group" "RoHa_K0s_SG1" {
 ########################
 # EIPS for MASTER NODES
 ########################
-resource "aws_eip" "myip" {
-  count = var.number_of_masternodes
-}
+#resource "aws_eip" "myip" {
+#  count = var.number_of_masternodes
+#}
 
 
 ######################## 
@@ -91,11 +87,11 @@ resource "aws_instance" "masterserver" {
 }
 
 
-resource "aws_eip_association" "eip_assoc" {
-  count = var.number_of_masternodes
-  instance_id   = aws_instance.masterserver[count.index].id
-  allocation_id = aws_eip.myip[count.index].id
-}
+#resource "aws_eip_association" "eip_assoc" {
+#  count = var.number_of_masternodes
+#  instance_id   = aws_instance.masterserver[count.index].id
+#  allocation_id = aws_eip.myip[count.index].id
+#}
 
 
 ######################## 
@@ -160,9 +156,7 @@ resource "aws_instance" "workerserver" {
   instance_type = var.instance_type
   key_name = var.my_key
   associate_public_ip_address = true
-  #security_groups =  [aws_security_group.RoHa_K0s_SG1.id]
   vpc_security_group_ids =  [aws_security_group.RoHa_K0s_SG1.id]
-  #subnet_id      = aws_subnet.RoHa_VPC_sub1_pub.id
 
   tags          = {
     Name        = "${format("workernodes-%03d", count.index + 1)}"
@@ -191,7 +185,6 @@ resource "null_resource" "launchpad1" {
   count = var.number_of_masternodes
   
   provisioner "local-exec" {
-    #command = "cd scripts ; ./1addmaster.ksh ${aws_eip.myip[count.index].public_ip}"
     command = "cd scripts ; ./1addmaster.ksh ${aws_instance.masterserver[count.index].private_ip} ${var.full_key-path}"
   } 
 } 
