@@ -160,6 +160,14 @@ resource "aws_instance" "workerserver" {
   }
 }
 
+# Make all scripts executable
+resource "null_resource" "makeX" {
+  
+  provisioner "local-exec" {
+    command = "cd scripts ; chmod 755 *.ksh"
+  } 
+} 
+
 ################
 # BUILD CLUSTER YAML FILE FOR BUILD
 ################
