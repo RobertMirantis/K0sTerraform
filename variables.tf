@@ -16,7 +16,8 @@ variable "my_key" {
 
 variable "full_key-path" {
   type = string
-  default = "/home/ec2-user/.ssh/roha_account2.pem"
+  default = "/home/ubuntu/.ssh/your_private_key_file.pem"
+  # Please make sure this file is in the PATH as specified.
 }
 
 variable "clustername" {
