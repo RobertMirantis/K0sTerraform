@@ -49,3 +49,10 @@ Step 10: Delete resources after playing
     * Goto bootstraphost : cd K0sTerraform directory
     * terraform destroy (+Yes)
     * Don't forget to delete the bootstraphost
+
+
+The video on how I did this can be found on: https://drive.google.com/file/d/1eJOcgu81jkbgCJTwVgnEuqECVCclVDrg/view
+
+Kind Regards,
+Robert Hartevelt
+PreSales Mirantis
